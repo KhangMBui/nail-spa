@@ -1,0 +1,187 @@
+/* Root & background setup */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url("/images/spa-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+/* Semi-transparent overlay for the page */
+.booking-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.booking-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10;
+  width: 150%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4); /* light glass effect */
+  backdrop-filter: blur(5px);
+  z-index: 0;
+}
+
+/* Nail Spa Name */
+.spa-name {
+  position: absolute;
+  top: 20px;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  pointer-events: none; /* Avoid accidental clicks if it overlaps anything */
+}
+
+.spa-name h1 {
+  font-size: 3.2rem;
+  font-weight: 400;
+  font-family: "Great Vibes", cursive; /* Elegant script font */
+  background: linear-gradient(135deg, #ff69b4, #ff8ac9, #e27cbf);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 3px rgba(255, 105, 180, 0.3),
+    2px 2px 8px rgba(0, 0, 0, 0.15);
+  margin: 0;
+  letter-spacing: 1.5px;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.spa-name h1:hover {
+  transform: scale(1.1);
+}
+
+/* Booking form card */
+.booking-form h2 {
+  align-self: center;
+}
+
+.booking-form {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  width: 100%;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.booking-form:hover {
+  transform: translateY(-5px);
+}
+
+/* Form fields */
+.field-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.field-container input,
+select {
+  width: 60%;
+}
+
+.booking-form label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+
+.booking-form input,
+.booking-form select {
+  margin-left: 1em;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.booking-form input:focus,
+.booking-form select:focus {
+  border-color: #ff69b4;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 105, 180, 0.4);
+}
+
+/* Submit button */
+.booking-form button {
+  padding: 0.75rem;
+  background-color: #ff69b4;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.booking-form button:hover {
+  background-color: #ff3a9a;
+  transform: scale(1.02);
+}
+
+.fancy-multiselect {
+  width: 64.5%;
+  max-height: 200px;
+  padding: 0.75rem;
+  border: 1px solid #f3cce7;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  color: #444;
+  box-shadow: 0 4px 10px rgba(255, 105, 180, 0.1);
+  appearance: none;
+  overflow-y: auto;
+}
+
+.fancy-multiselect:focus {
+  outline: none;
+  border-color: #ff69b4;
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
+}
+
+.fancy-multiselect option {
+  padding: 0.5rem;
+  border-radius: 8px;
+  margin: 4px 0;
+  background: #fff;
+  transition: background 0.2s ease;
+}
+
+.fancy-multiselect option:hover,
+.fancy-multiselect option:checked {
+  background-color: #ffe6f0;
+  color: #d63384;
+  font-weight: 600;
+}
