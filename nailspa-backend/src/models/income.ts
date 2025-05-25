@@ -1,11 +1,17 @@
-import { IncomeSplit } from "../types/index";
+import { DataTypes, Sequelize } from "sequelize";
 
-let incomeSplits: IncomeSplit[] = [];
-
-export const IncomeModel = {
-  getAll: (): IncomeSplit[] => incomeSplits,
-  add: (income: IncomeSplit): IncomeSplit => {
-    incomeSplits.push(income);
-    return income;
-  },
+export default (sequelize: Sequelize) => {
+  const Income = sequelize.define("Income", {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    amount: DataTypes.FLOAT,
+    date: DataTypes.DATE,
+    source: DataTypes.STRING, // e.g. "service", "product", etc.
+    appointmentId: DataTypes.INTEGER, // FK to Appointment (optional)
+    notes: DataTypes.STRING,
+  });
+  return Income;
 };

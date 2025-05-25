@@ -1,32 +1,19 @@
-import { Appointment } from "../types/index";
+import { DataTypes, Sequelize } from "sequelize";
 
-let appointments: Appointment[] = [];
-
-export const AppointmentModel = {
-  getAll: (): Appointment[] => appointments,
-  getById: (id: string): Appointment | undefined =>
-    appointments.find((a) => a.id === id),
-  add: (appointment: Appointment): Appointment => {
-    appointments.push(appointment);
-    return appointment;
-  },
-  update: (
-    id: string,
-    updates: Partial<Appointment>
-  ): Appointment | undefined => {
-    const appointment = appointments.find((a) => a.id === id);
-    if (appointment) {
-      Object.assign(appointment, updates);
-      return appointment;
-    }
-    return undefined;
-  },
-  remove: (id: string): boolean => {
-    const index = appointments.findIndex((a) => a.id === id);
-    if (index !== -1) {
-      appointments.splice(index, 1);
-      return true;
-    }
-    return false;
-  },
+export default (sequelize: Sequelize) => {
+  const Appointment = sequelize.define("Appointment", {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    customerName: DataTypes.STRING,
+    customerPhone: DataTypes.STRING,
+    date: DataTypes.DATE,
+    serviceId: DataTypes.INTEGER, // FK to Service
+    workerId: DataTypes.INTEGER, // FK to Worker
+    notes: DataTypes.STRING,
+    status: DataTypes.STRING, // e.g. "scheduled", "completed", "cancelled"
+  });
+  return Appointment;
 };
