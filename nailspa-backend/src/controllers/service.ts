@@ -1,30 +1,35 @@
 import { Request, Response } from "express";
-import { ServiceModel } from "../models/service";
+import { Service } from "../models";
 
 export const ServiceController = {
-  getAll: (req: Request, res: Response) => {
-    res.json(ServiceModel.getAll());
+  getAll: async (req: Request, res: Response) => {
+    const services = await Service.findAll();
+    res.json(services);
   },
-  getById: (req: Request, res: Response) => {
+  getById: async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const service = ServiceModel.getById(id);
+    const service = await Service.findByPk(id);
     if (service) res.json(service);
     else res.status(404).json({ message: "Service not found" });
   },
-  add: (req: Request, res: Response) => {
-    const service = ServiceModel.add(req.body);
+  add: async (req: Request, res: Response) => {
+    const service = await Service.create(req.body);
     res.status(201).json(service);
   },
-  update: (req: Request, res: Response) => {
+  update: async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const service = ServiceModel.update(id, req.body);
-    if (service) res.json(service);
-    else res.status(404).json({ message: "Service not found" });
+    const [updated] = await Service.update(req.body, { where: { id } });
+    if (updated) {
+      const updatedService = await Service.findByPk(id);
+      res.json(updatedService);
+    } else {
+      res.status(404).json({ message: "Service not found" });
+    }
   },
-  remove: (req: Request, res: Response) => {
+  remove: async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const success = ServiceModel.remove(id);
-    if (success) res.json({ message: "Service removed" });
+    const deleted = await Service.destroy({ where: { id } });
+    if (deleted) res.json({ message: "Service removed" });
     else res.status(404).json({ message: "Service not found" });
   },
 };

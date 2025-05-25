@@ -11,6 +11,7 @@ export default (sequelize: Sequelize) => {
     description: DataTypes.STRING,
     duration: DataTypes.INTEGER,
     price: DataTypes.FLOAT,
+    gel: DataTypes.BOOLEAN,
   });
   return Service;
 };

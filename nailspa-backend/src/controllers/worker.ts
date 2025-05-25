@@ -1,43 +1,35 @@
 import { Request, Response } from "express";
-import { WorkerModel } from "../models/worker";
+import { Worker } from "../models";
 
 export const WorkerController = {
-  getAll: (req: Request, res: Response) => {
-    res.json(WorkerModel.getAll());
+  getAll: async (req: Request, res: Response) => {
+    const workers = await Worker.findAll();
+    res.json(workers);
   },
-
-  getById: (req: Request, res: Response) => {
+  getById: async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const worker = WorkerModel.getById(id);
-    if (worker) {
-      res.json(worker);
-    } else {
-      res.status(404).json({ message: "Worker not found" });
-    }
+    const worker = await Worker.findByPk(id);
+    if (worker) res.json(worker);
+    else res.status(404).json({ message: "Worker not found" });
   },
-
-  add: (req: Request, res: Response) => {
-    const worker = WorkerModel.add(req.body);
+  add: async (req: Request, res: Response) => {
+    const worker = await Worker.create(req.body);
     res.status(201).json(worker);
   },
-
-  update: (req: Request, res: Response) => {
+  update: async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const worker = WorkerModel.update(id, req.body);
-    if (worker) {
-      res.json(worker);
+    const [updated] = await Worker.update(req.body, { where: { id } });
+    if (updated) {
+      const updatedWorker = await Worker.findByPk(id);
+      res.json(updatedWorker);
     } else {
       res.status(404).json({ message: "Worker not found" });
     }
   },
-
-  remove: (req: Request, res: Response) => {
+  remove: async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const success = WorkerModel.remove(id);
-    if (success) {
-      res.json({ message: "Worker removed" });
-    } else {
-      res.status(404).json({ message: "Worker not found" });
-    }
+    const deleted = await Worker.destroy({ where: { id } });
+    if (deleted) res.json({ message: "Worker removed" });
+    else res.status(404).json({ message: "Worker not found" });
   },
 };
