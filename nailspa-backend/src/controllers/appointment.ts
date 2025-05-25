@@ -1,30 +1,35 @@
 import { Request, Response } from "express";
-import { AppointmentModel } from "../models/appointment";
+import { Appointment } from "../models";
 
 export const AppointmentController = {
-  getAll: (req: Request, res: Response) => {
-    res.json(AppointmentModel.getAll());
+  getAll: async (req: Request, res: Response) => {
+    const Appointments = await Appointment.findAll();
+    res.json(Appointments);
   },
-  getById: (req: Request, res: Response) => {
-    const id = req.params.id;
-    const appointment = AppointmentModel.getById(id);
-    if (appointment) res.json(appointment);
+  getById: async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const appointment = await Appointment.findByPk(id);
+    if (Appointment) res.json(Appointment);
     else res.status(404).json({ message: "Appointment not found" });
   },
-  add: (req: Request, res: Response) => {
-    const appointment = AppointmentModel.add(req.body);
-    res.status(201).json(appointment);
+  add: async (req: Request, res: Response) => {
+    const appointment = await Appointment.create(req.body);
+    res.status(201).json(Appointment);
   },
-  update: (req: Request, res: Response) => {
-    const id = req.params.id;
-    const appointment = AppointmentModel.update(id, req.body);
-    if (appointment) res.json(appointment);
-    else res.status(404).json({ message: "Appointment not found" });
+  update: async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const [updated] = await Appointment.update(req.body, { where: { id } });
+    if (updated) {
+      const updatedAppointment = await Appointment.findByPk(id);
+      res.json(updatedAppointment);
+    } else {
+      res.status(404).json({ message: "Appointment not found" });
+    }
   },
-  remove: (req: Request, res: Response) => {
-    const id = req.params.id;
-    const success = AppointmentModel.remove(id);
-    if (success) res.json({ message: "Appointment removed" });
+  remove: async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const deleted = await Appointment.destroy({ where: { id } });
+    if (deleted) res.json({ message: "Appointment removed" });
     else res.status(404).json({ message: "Appointment not found" });
   },
 };

@@ -1,47 +1,47 @@
 import { Router } from "express";
-import { WorkerController } from "../controllers/worker";
+import { UserController } from "../controllers/user";
 
 const router = Router();
 
 /**
  * @swagger
- * /api/workers:
+ * /api/users:
  *   get:
- *     summary: Get all workers
- *     tags: [Workers]
+ *     summary: Get all users
+ *     tags: [Users]
  *     responses:
  *       200:
- *         description: List of workers
+ *         description: List of users
  */
-router.get("/", WorkerController.getAll);
+router.get("/", UserController.getAll);
 
 /**
  * @swagger
- * /api/workers/{id}:
+ * /api/users/{id}:
  *   get:
- *     summary: Get a worker by ID
- *     tags: [Workers]
+ *     summary: Get a user by ID
+ *     tags: [Users]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: integer
  *         required: true
- *         description: Worker ID
+ *         description: User ID
  *     responses:
  *       200:
- *         description: Worker found
+ *         description: User found
  *       404:
- *         description: Worker not found
+ *         description: User not found
  */
-router.get("/:id", WorkerController.getById);
+router.get("/:id", UserController.getById);
 
 /**
  * @swagger
- * /api/workers:
+ * /api/users:
  *   post:
- *     summary: Create a new worker
- *     tags: [Workers]
+ *     summary: Create a new user
+ *     tags: [Users]
  *     requestBody:
  *       required: true
  *       content:
@@ -51,29 +51,31 @@ router.get("/:id", WorkerController.getById);
  *             properties:
  *               name:
  *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
  *               role:
  *                 type: string
- *               salary:
- *                 type: number
  *     responses:
  *       201:
- *         description: Worker created
+ *         description: User created
  */
-router.post("/", WorkerController.add);
+router.post("/", UserController.add);
 
 /**
  * @swagger
- * /api/workers/{id}:
+ * /api/users/{id}:
  *   put:
- *     summary: Update a worker
- *     tags: [Workers]
+ *     summary: Update a user
+ *     tags: [Users]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: integer
  *         required: true
- *         description: Worker ID
+ *         description: User ID
  *     requestBody:
  *       required: true
  *       content:
@@ -83,37 +85,39 @@ router.post("/", WorkerController.add);
  *             properties:
  *               name:
  *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
  *               role:
  *                 type: string
- *               salary:
- *                 type: number
  *     responses:
  *       200:
- *         description: Worker updated
+ *         description: User updated
  *       404:
- *         description: Worker not found
+ *         description: User not found
  */
-router.put("/:id", WorkerController.update);
+router.put("/:id", UserController.update);
 
 /**
  * @swagger
- * /api/workers/{id}:
+ * /api/users/{id}:
  *   delete:
- *     summary: Delete a worker
- *     tags: [Workers]
+ *     summary: Delete a user
+ *     tags: [Users]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: integer
  *         required: true
- *         description: Worker ID
+ *         description: User ID
  *     responses:
  *       200:
- *         description: Worker deleted
+ *         description: User deleted
  *       404:
- *         description: Worker not found
+ *         description: User not found
  */
-router.delete("/:id", WorkerController.remove);
+router.delete("/:id", UserController.remove);
 
 export default router;

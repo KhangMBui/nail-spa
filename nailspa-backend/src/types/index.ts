@@ -39,6 +39,7 @@ export interface Service {
   id: number;
   name: string;
   description: string;
+  gel: boolean;
   duration: Number; // in minutes
   price: number;
 }
