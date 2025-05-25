@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import { ensureDatabaseExists } from "./config/database";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./swagger";
 
 const startServer = async () => {
   await ensureDatabaseExists();
@@ -19,7 +21,10 @@ const startServer = async () => {
   app.use(cors());
   app.use(express.json());
 
-  // Use routes (fix path typo)
+  // Swagger UI endpoint
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+  // Use routes
   app.use("/api/workers", workerRoutes);
   app.use("/api/services", serviceRoutes);
   app.use("/api/appointments", appointmentRoutes);
@@ -34,6 +39,7 @@ const startServer = async () => {
 
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Swagger docs at http://localhost:${PORT}/api-docs`);
   });
 };
 
