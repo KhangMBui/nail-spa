@@ -37,7 +37,22 @@ export const UserController = {
     else res.status(404).json({ message: "User not found" });
   },
   register: (async (req: Request, res: Response) => {
+    // Get request's body
     const { email, password, name, role } = req.body;
+
+    // Check if user exists
+    if (await User.findOne({ where: { email } })) {
+      res
+        .status(500)
+        .json({ error: `User with email ${email} already existed` });
+    }
+    if (await User.findOne({ where: { name } })) {
+      res
+        .status(500)
+        .json({ error: `User with username ${name} already existed` });
+    }
+
+    // If not, proceed to register the user
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await User.create({
@@ -64,7 +79,6 @@ export const UserController = {
       if (!user || !(await bcrypt.compare(password, user.get("password")))) {
         return res.status(401).json({ error: "Invalid email or password" });
       }
-
       const token = jwt.sign(
         {
           id: user.get("id"),

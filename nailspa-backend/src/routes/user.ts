@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { UserController } from "../controllers/user";
+import { authenticateToken, authorizeRole } from "../middleware/authMiddleware";
 
 const router = Router();
 
@@ -13,7 +14,7 @@ const router = Router();
  *       200:
  *         description: List of users
  */
-router.get("/", UserController.getAll);
+router.get("/", authenticateToken, UserController.getAll);
 
 /**
  * @swagger
@@ -69,6 +70,7 @@ router.post("/", UserController.add);
  *   post:
  *     summary: Register a new user
  *     tags: [Users]
+ *     security: []
  *     requestBody:
  *       required: true
  *       content:
@@ -84,6 +86,11 @@ router.post("/", UserController.add);
  *                 type: string
  *               role:
  *                 type: string
+ *           example:
+ *             name: "khangb"
+ *             email: "khangbui2023@gmail.com"
+ *             password: "Maruko123!"
+ *             role: "manager"
  *     responses:
  *       201:
  *         description: User registered successfully
@@ -98,6 +105,7 @@ router.post("/register", UserController.register);
  *   post:
  *     summary: Login a user
  *     tags: [Users]
+ *     security: []
  *     requestBody:
  *       required: true
  *       content:
@@ -109,6 +117,9 @@ router.post("/register", UserController.register);
  *                 type: string
  *               password:
  *                 type: string
+ *           example:
+ *             email: "khangbui2002@gmail.com"
+ *             password: "Maruko12345!"
  *     responses:
  *       200:
  *         description: Login successful, returns JWT token
@@ -172,6 +183,11 @@ router.put("/:id", UserController.update);
  *       404:
  *         description: User not found
  */
-router.delete("/:id", UserController.remove);
+router.delete(
+  "/:id",
+  authenticateToken,
+  authorizeRole("admin"),
+  UserController.remove
+);
 
 export default router;
