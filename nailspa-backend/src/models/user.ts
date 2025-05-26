@@ -7,13 +7,20 @@ export default (sequelize: Sequelize) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
     email: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
     },
-    password: DataTypes.STRING, // store hashed password
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }, // store hashed password
     role: DataTypes.STRING, // "owner", "manager", "admin"
   });
   return User;
