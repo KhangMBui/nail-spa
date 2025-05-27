@@ -1,7 +1,6 @@
 import { Request, Response, RequestHandler } from "express";
 import { User } from "../models";
-// const bcrypt = require("bcrypt");
-// const jwt = require("jsonwebtoken");
+import { Worker } from "../models";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -111,6 +110,34 @@ export const UserController = {
         res
           .status(500)
           .json({ error: "An unknown error occurred while logging in." });
+      }
+    }
+  }) as RequestHandler,
+  addWorker: (async (req: Request, res: Response) => {
+    try {
+      const { name, role, salary, passcode } = req.body;
+      if (await Worker.findOne({ where: { name } })) {
+        return res
+          .status(400)
+          .json({ error: `Worker with name ${name} already existed` });
+      }
+      if (!name || !role || !salary || !passcode) {
+        return res.status(400).json({ error: "Missing required fields" });
+      }
+      if (!/^\d{4}$/.test(String(passcode))) {
+        return res
+          .status(400)
+          .json({ error: "Passcode must be exactly 4 digits." });
+      }
+      const worker = await Worker.create({ name, role, salary, passcode });
+      res.status(201).json({ message: "Worker added.", worker });
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(500).json({ error: err.message });
+      } else {
+        res
+          .status(500)
+          .json({ error: "An unknown error occurred while adding a worker." });
       }
     }
   }) as RequestHandler,

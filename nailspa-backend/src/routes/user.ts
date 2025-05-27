@@ -130,6 +130,41 @@ router.post("/login", UserController.login);
 
 /**
  * @swagger
+ * /api/users/add-worker:
+ *   post:
+ *     summary: Add Worker
+ *     tags: [Users]
+ *     security: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *               salary:
+ *                 type: float
+ *               passcode:
+ *                 type: int
+ *           example:
+ *               name: Ngoc Vy Luong
+ *               role: Gel Specialist
+ *               passcode: 1234
+ *               salary: 16.66
+ *     responses:
+ *       200:
+ *         description: Added worker successfully
+ *       401:
+ *         description: An error occurred while adding a worker
+ */
+router.post("/add-worker", UserController.addWorker);
+
+/**
+ * @swagger
  * /api/users/{id}:
  *   put:
  *     summary: Update a user
