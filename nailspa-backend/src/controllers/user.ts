@@ -1,7 +1,9 @@
 import { Request, Response, RequestHandler } from "express";
 import { User } from "../models";
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+// const bcrypt = require("bcrypt");
+// const jwt = require("jsonwebtoken");
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const SECRET = process.env.JWT_SECRET;
 
@@ -76,7 +78,10 @@ export const UserController = {
     const { email, password } = req.body;
     try {
       const user = await User.findOne({ where: { email } });
-      if (!user || !(await bcrypt.compare(password, user.get("password")))) {
+      if (
+        !user ||
+        !(await bcrypt.compare(password, user.get("password") as string))
+      ) {
         return res.status(401).json({ error: "Invalid email or password" });
       }
       const token = jwt.sign(
@@ -86,7 +91,7 @@ export const UserController = {
           email: user.get("email"),
           role: user.get("role"),
         },
-        SECRET,
+        SECRET as string,
         { expiresIn: "1h" }
       );
       res.status(200).json({
