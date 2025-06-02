@@ -9,8 +9,15 @@ export async function assignWorkerForOrder(serviceIds: number[]) {
   );
 
   // 2. Find available workers
+  const today = new Date().toISOString().slice(0, 10);
+  const arrivals = await WorkerArrival.findAll({
+    where: { arrivalDate: today },
+    order: [["arrivalOrder", "ASC"]],
+  });
+  const checkedInWorkerIds = arrivals.map((a) => a.getDataValue("workerId"));
+
   const availableWorkers = await Worker.findAll({
-    where: { isAvailable: true },
+    where: { isAvailable: true, id: checkedInWorkerIds },
   });
 
   /* Defensive check */
