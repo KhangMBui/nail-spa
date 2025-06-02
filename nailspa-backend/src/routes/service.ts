@@ -55,6 +55,8 @@ router.get("/:id", ServiceController.getById);
  *                 type: string
  *               duration:
  *                 type: integer
+ *               turn:
+ *                 type: float
  *               price:
  *                 type: number
  *               gel:
@@ -89,6 +91,8 @@ router.post("/", ServiceController.add);
  *                 type: string
  *               description:
  *                 type: string
+ *               turn:
+ *                 type: float
  *               duration:
  *                 type: integer
  *               price:

@@ -10,6 +10,7 @@ export default (sequelize: Sequelize) => {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     duration: DataTypes.INTEGER,
+    turn: DataTypes.FLOAT,
     price: DataTypes.FLOAT,
     gel: DataTypes.BOOLEAN,
   });

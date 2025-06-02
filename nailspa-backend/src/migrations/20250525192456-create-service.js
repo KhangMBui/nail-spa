@@ -19,6 +19,9 @@ module.exports = {
       duration: {
         type: Sequelize.INTEGER,
       },
+      turn: {
+        type: Sequelize.FLOAT,
+      },
       price: {
         type: Sequelize.FLOAT,
       },
