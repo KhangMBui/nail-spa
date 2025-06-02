@@ -12,6 +12,8 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
       },
       description: {
         type: Sequelize.STRING,
@@ -21,9 +23,11 @@ module.exports = {
       },
       turn: {
         type: Sequelize.FLOAT,
+        allowNull: false,
       },
       price: {
         type: Sequelize.FLOAT,
+        allowNull: false,
       },
       gel: {
         type: Sequelize.BOOLEAN,

@@ -21,6 +21,16 @@ export default (sequelize: Sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    turn: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    isAvailable: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
   });
   return Worker;
 };

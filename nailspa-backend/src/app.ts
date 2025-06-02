@@ -3,6 +3,7 @@ import cors from "cors";
 import { ensureDatabaseExists } from "./config/database";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./swagger";
+import "./services/resetTurn";
 
 const startServer = async () => {
   await ensureDatabaseExists();

@@ -7,11 +7,11 @@ export default (sequelize: Sequelize) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    name: DataTypes.STRING,
+    name: { type: DataTypes.STRING, allowNull: false, unique: true },
     description: DataTypes.STRING,
     duration: DataTypes.INTEGER,
-    turn: DataTypes.FLOAT,
-    price: DataTypes.FLOAT,
+    turn: { type: DataTypes.FLOAT, allowNull: false },
+    price: { type: DataTypes.FLOAT, allowNull: false },
     gel: DataTypes.BOOLEAN,
   });
   return Service;
