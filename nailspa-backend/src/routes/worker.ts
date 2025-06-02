@@ -65,6 +65,33 @@ router.post("/", WorkerController.add);
 
 /**
  * @swagger
+ * /api/workers/checkin:
+ *   post:
+ *     summary: Worker check-in for arrival order
+ *     tags: [Workers]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               passcode:
+ *                 type: number
+ *     responses:
+ *       200:
+ *         description: Checked in
+ *       400:
+ *         description: Already checked in today
+ *       401:
+ *         description: Invalid credentials
+ */
+router.post("/checkin", WorkerController.checkin);
+
+/**
+ * @swagger
  * /api/workers/{id}:
  *   put:
  *     summary: Update a worker
