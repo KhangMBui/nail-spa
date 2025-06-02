@@ -11,7 +11,7 @@
     "db:drop": "set NODE_OPTIONS=--require ts-node/register && sequelize-cli db:drop",
     "db:create": "set NODE_OPTIONS=--require ts-node/register && sequelize-cli db:create",
     "db:migrate": "set NODE_OPTIONS=--require ts-node/register && sequelize-cli db:migrate",
-    "db:relational:generate": "npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string",
+    "db:relational:generate": "set NODE_OPTIONS=--require ts-node/register && sequelize-cli model:generate --",
     "db:migration:generate": "set NODE_OPTIONS=--require ts-node/register && sequelize-cli migration:generate --name",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npm run db:seed:all"
   },
@@ -20,9 +20,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "node-cron": "^4.1.0",
     "pg": "^8.16.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.7",
@@ -30,8 +33,10 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.18",
     "@types/express": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.15.18",
     "@types/pg": "^8.15.2",
     "@types/swagger-jsdoc": "^6.0.4",

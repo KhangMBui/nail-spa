@@ -12,12 +12,28 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       role: {
         type: Sequelize.STRING,
       },
       salary: {
         type: Sequelize.FLOAT,
+        allowNull: false,
+      },
+      passcode: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      turn: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+        defaultValue: 0,
+      },
+      isAvailable: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
       },
       createdAt: {
         type: Sequelize.DATE,

@@ -19,9 +19,9 @@ module.exports = {
       date: {
         type: Sequelize.DATE,
       },
-      serviceId: {
-        type: Sequelize.INTEGER,
-      },
+      // serviceId: {
+      //   type: Sequelize.INTEGER,
+      // },
       workerId: {
         type: Sequelize.INTEGER,
       },

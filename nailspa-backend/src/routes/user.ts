@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { UserController } from "../controllers/user";
+import { authenticateToken, authorizeRole } from "../middleware/authMiddleware";
 
 const router = Router();
 
@@ -13,7 +14,7 @@ const router = Router();
  *       200:
  *         description: List of users
  */
-router.get("/", UserController.getAll);
+router.get("/", authenticateToken, UserController.getAll);
 
 /**
  * @swagger
@@ -62,6 +63,105 @@ router.get("/:id", UserController.getById);
  *         description: User created
  */
 router.post("/", UserController.add);
+
+/**
+ * @swagger
+ * /api/users/register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Users]
+ *     security: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *           example:
+ *             name: "khangb"
+ *             email: "khangbui2023@gmail.com"
+ *             password: "Maruko123!"
+ *             role: "manager"
+ *     responses:
+ *       201:
+ *         description: User registered successfully
+ *       400:
+ *         description: Invalid input or user already exists
+ */
+router.post("/register", UserController.register);
+
+/**
+ * @swagger
+ * /api/users/login:
+ *   post:
+ *     summary: Login a user
+ *     tags: [Users]
+ *     security: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *           example:
+ *             email: "khangbui2002@gmail.com"
+ *             password: "Maruko12345!"
+ *     responses:
+ *       200:
+ *         description: Login successful, returns JWT token
+ *       401:
+ *         description: Invalid credentials
+ */
+router.post("/login", UserController.login);
+
+/**
+ * @swagger
+ * /api/users/add-worker:
+ *   post:
+ *     summary: Add Worker
+ *     tags: [Users]
+ *     security: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *               salary:
+ *                 type: float
+ *               passcode:
+ *                 type: int
+ *           example:
+ *               name: Ngoc Vy Luong
+ *               role: Gel Specialist
+ *               passcode: 1234
+ *               salary: 16.66
+ *     responses:
+ *       200:
+ *         description: Added worker successfully
+ *       401:
+ *         description: An error occurred while adding a worker
+ */
+router.post("/add-worker", UserController.addWorker);
 
 /**
  * @swagger
@@ -118,6 +218,11 @@ router.put("/:id", UserController.update);
  *       404:
  *         description: User not found
  */
-router.delete("/:id", UserController.remove);
+router.delete(
+  "/:id",
+  authenticateToken,
+  authorizeRole("admin"),
+  UserController.remove
+);
 
 export default router;

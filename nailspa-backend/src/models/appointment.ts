@@ -10,7 +10,7 @@ export default (sequelize: Sequelize) => {
     customerName: DataTypes.STRING,
     customerPhone: DataTypes.STRING,
     date: DataTypes.DATE,
-    serviceId: DataTypes.INTEGER, // FK to Service
+    // serviceId: DataTypes.INTEGER, // FK to Service
     workerId: DataTypes.INTEGER, // FK to Worker
     notes: DataTypes.STRING,
     status: DataTypes.STRING, // e.g. "scheduled", "completed", "cancelled"
