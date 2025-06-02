@@ -55,6 +55,8 @@ router.get("/:id", WorkerController.getById);
  *                 type: string
  *               salary:
  *                 type: number
+ *               passcode:
+ *                 type: number
  *     responses:
  *       201:
  *         description: Worker created
@@ -86,6 +88,8 @@ router.post("/", WorkerController.add);
  *               role:
  *                 type: string
  *               salary:
+ *                 type: number
+ *               passcode:
  *                 type: number
  *     responses:
  *       200:
