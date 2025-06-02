@@ -11,7 +11,7 @@
     "db:drop": "set NODE_OPTIONS=--require ts-node/register && sequelize-cli db:drop",
     "db:create": "set NODE_OPTIONS=--require ts-node/register && sequelize-cli db:create",
     "db:migrate": "set NODE_OPTIONS=--require ts-node/register && sequelize-cli db:migrate",
-    "db:relational:generate": "npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string",
+    "db:relational:generate": "set NODE_OPTIONS=--require ts-node/register && sequelize-cli model:generate --",
     "db:migration:generate": "set NODE_OPTIONS=--require ts-node/register && sequelize-cli migration:generate --name",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npm run db:seed:all"
   },
