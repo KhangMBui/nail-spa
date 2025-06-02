@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { Appointment } from "../models";
 
 export const AppointmentController = {
+  initiate: async (req: Request, res: Response) => {},
+  accept: async (req: Request, res: Response) => {},
   getAll: async (req: Request, res: Response) => {
     const Appointments = await Appointment.findAll();
     res.json(Appointments);
