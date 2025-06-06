@@ -7,7 +7,7 @@ const router = Router();
  * @swagger
  * /api/appointments/initiate:
  *   post:
- *     summary: Initiate a draft appointment and suggest a worker
+ *     summary: Initiate an appointment with status as initialized
  *     tags: [Appointments]
  *     requestBody:
  *       required: true
@@ -42,7 +42,7 @@ const router = Router();
  *             appointmentTime: "14:30"
  *     responses:
  *       200:
- *         description: Draft appointment created
+ *         description: Appointment initialized. Please accept to finalize.
  *       400:
  *         description: Missing required fields or no available worker
  */
@@ -52,7 +52,7 @@ router.post("/initiate", AppointmentController.initiate);
  * @swagger
  * /api/appointments/accept:
  *   post:
- *     summary: Accept and finalize an appointment
+ *     summary: Accept and finalize an appointment with status as scheduled
  *     tags: [Appointments]
  *     requestBody:
  *       required: true
@@ -61,33 +61,17 @@ router.post("/initiate", AppointmentController.initiate);
  *           schema:
  *             type: object
  *             properties:
- *               customerName:
- *                 type: string
- *               customerPhone:
- *                 type: string
- *               date:
- *                 type: string
- *                 format: date-time
- *               workerId:
+ *               appointmentId:
  *                 type: integer
- *               serviceIds:
- *                 type: array
- *                 items:
- *                   type: integer
- *               totalTurn:
- *                 type: number
  *           example:
- *             customerName: "Hoang Bui"
- *             customerPhone: "425 414 0885"
- *             date: "2025-06-02T14:30"
- *             workerId: 1
- *             serviceIds: [1, 3]
- *             totalTurn: 1.5
+ *             appointmentId: 1
  *     responses:
  *       201:
- *         description: Appointment accepted and saved
- *       500:
- *         description: Failed to accept appointment
+ *         description: Appointment accepted and scheduled.
+ *       400:
+ *         description: Missing appointmentId
+ *       404:
+ *         description: Appointment not found
  */
 router.post("/accept", AppointmentController.accept);
 
@@ -97,6 +81,20 @@ router.post("/accept", AppointmentController.accept);
  *   post:
  *     summary: Mark an appointment as completed and set worker as available
  *     tags: [Appointments]
+ *     requestBody:
+ *       required: false
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               tip:
+ *                 type: float
+ *               notes:
+ *                 type: string
+ *           example:
+ *             tip: 5
+ *             notes: ""
  *     parameters:
  *       - in: path
  *         name: id
