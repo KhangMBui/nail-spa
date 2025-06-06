@@ -81,6 +81,17 @@ router.post("/accept", AppointmentController.accept);
  *   post:
  *     summary: Mark an appointment as completed and set worker as available
  *     tags: [Appointments]
+ *     requestBody:
+ *       required: false
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               tip:
+ *                 type: float
+ *           example:
+ *             tip: 5
  *     parameters:
  *       - in: path
  *         name: id

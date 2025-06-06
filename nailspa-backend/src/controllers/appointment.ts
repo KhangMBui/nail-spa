@@ -168,6 +168,12 @@ export const AppointmentController = {
   close: (async (req: Request, res: Response) => {
     try {
       const id = Number(req.params.id);
+      let { tip } = req.body;
+
+      if (!tip) {
+        tip = 0;
+      }
+
       const appointment = await Appointment.findByPk(id);
       if (!appointment) {
         return res.status(404).json({ message: "Appointment not found." });
@@ -189,6 +195,7 @@ export const AppointmentController = {
 
         res.json({
           message: "Appointment closed and worker is now available.",
+          tip: tip,
         });
         return;
       }

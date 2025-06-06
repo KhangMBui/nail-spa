@@ -10,20 +10,32 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
       },
-      amount: {
+      subTotal: {
         type: Sequelize.FLOAT,
+        allowNull: false,
+      },
+      tip: {
+        type: Sequelize.FLOAT,
+        allowNull: true,
+      },
+      totalAmount: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+      },
+      tipForOwner: {
+        type: Sequelize.FLOAT,
+        allowNull: true,
+      },
+      tipForWorker: {
+        type: Sequelize.FLOAT,
+        allowNull: true,
       },
       date: {
         type: Sequelize.DATE,
       },
       source: {
         type: Sequelize.STRING,
-      },
-      appointmentId: {
-        type: Sequelize.INTEGER,
-      },
-      notes: {
-        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,
