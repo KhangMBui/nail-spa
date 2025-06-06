@@ -90,8 +90,11 @@ router.post("/accept", AppointmentController.accept);
  *             properties:
  *               tip:
  *                 type: float
+ *               notes:
+ *                 type: string
  *           example:
  *             tip: 5
+ *             notes: ""
  *     parameters:
  *       - in: path
  *         name: id

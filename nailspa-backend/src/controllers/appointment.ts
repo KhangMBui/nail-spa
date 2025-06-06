@@ -2,6 +2,7 @@ import { Request, RequestHandler, Response } from "express";
 import {
   Appointment,
   AppointmentService,
+  Income,
   Service,
   WorkerArrival,
 } from "../models";
@@ -33,6 +34,9 @@ export const AppointmentController = {
         return res.status(400).json({ error: "Missing required fields" });
       }
 
+      const selectedServices = await Service.findAll({
+        where: { id: serviceIds },
+      });
       let assignedWorker = null;
       let totalTurn = 0;
 
@@ -56,9 +60,6 @@ export const AppointmentController = {
         }
 
         // Calculate turn:
-        const selectedServices = await Service.findAll({
-          where: { id: serviceIds },
-        });
         totalTurn = selectedServices.reduce(
           (sum, s) => sum + s.getDataValue("turn"),
           0
@@ -71,6 +72,11 @@ export const AppointmentController = {
           return res.status(400).json({ error: "No available worker found" });
         }
       }
+
+      const subTotal = selectedServices.reduce(
+        (sum, s) => sum + (s.getDataValue("price") || 0),
+        0
+      );
 
       // Create the appointment with status "initialized"
       const appointment = await Appointment.create({
@@ -98,6 +104,7 @@ export const AppointmentController = {
         assignedWorker: {
           id: assignedWorker.getDataValue("id"),
           name: assignedWorker.getDataValue("name"),
+          subtotal: subTotal,
         },
         serviceIds: serviceIds,
       });
@@ -132,12 +139,16 @@ export const AppointmentController = {
         as.getDataValue("serviceId")
       );
 
-      // 3. Calculate totalTurn
+      // 3. Calculate totalTurn & subtotal
       const selectedServices = await Service.findAll({
         where: { id: serviceIds },
       });
       const totalTurn = selectedServices.reduce(
         (sum, s) => sum + s.getDataValue("turn"),
+        0
+      );
+      const subTotal = selectedServices.reduce(
+        (sum, s) => sum + (s.getDataValue("price") || 0),
         0
       );
 
@@ -160,6 +171,7 @@ export const AppointmentController = {
       res.status(201).json({
         message: "Appointment accepted and scheduled.",
         appointmentId,
+        subtotal: subTotal,
       });
     } catch (err) {
       res.status(500).json({ error: `Failed to accept appointment: ${err}` });
@@ -168,7 +180,7 @@ export const AppointmentController = {
   close: (async (req: Request, res: Response) => {
     try {
       const id = Number(req.params.id);
-      let { tip } = req.body;
+      let { tip, notes } = req.body;
 
       if (!tip) {
         tip = 0;
@@ -193,9 +205,50 @@ export const AppointmentController = {
           { where: { id: appointment.getDataValue("workerId") } }
         );
 
+        /* Calculate income */
+        // 1. Find services of this appointment:
+        const appointmentServices = await AppointmentService.findAll({
+          where: { appointmentId: id },
+        });
+        const serviceIds = appointmentServices.map((as) =>
+          as.getDataValue("serviceId")
+        );
+
+        // 2. Calculate subtotal:
+        const selectedServices = await Service.findAll({
+          where: { id: serviceIds },
+        });
+        const subTotal = selectedServices.reduce(
+          (sum, s) => sum + (s.getDataValue("price") || 0),
+          0
+        );
+
+        // 3. Calculate tip splits and total
+        const totalAmount = subTotal + tip;
+        const tipForWorker = tip * 0.8; // Example: 80% to worker
+        const tipForOwner = tip * 0.2; // Example: 20% to owner
+
+        // Calculate tip and income
+        await Income.create({
+          subTotal,
+          tip,
+          totalAmount,
+          tipForOwner,
+          tipForWorker,
+          date: new Date(),
+          source: "service",
+          appointmentId: id,
+          workerId: appointment.getDataValue("workerId"),
+          notes: notes || "",
+        });
+
         res.json({
           message: "Appointment closed and worker is now available.",
-          tip: tip,
+          tip,
+          subTotal,
+          totalAmount,
+          tipForWorker,
+          tipForOwner,
         });
         return;
       }
