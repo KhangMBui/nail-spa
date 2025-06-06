@@ -5,8 +5,8 @@ import WorkerModel from "./worker";
 import AppointmentModel from "./appointment";
 import IncomeModel from "./income";
 import UserModel from "./user";
-import WorkerArrivalModel from "./workerArrival";
-import AppointmentServiceModel from "./appointmentService";
+import WorkerArrivalModel from "./workerarrival";
+import AppointmentServiceModel from "./appointmentservice";
 
 export const Service = ServiceModel(sequelize);
 export const Worker = WorkerModel(sequelize);
