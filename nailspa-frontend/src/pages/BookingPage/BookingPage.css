@@ -1,8 +1,8 @@
 /* Root & background setup */
-body {
+/* body {
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url("/images/spa-background.jpg");
+  background-image: url("/images/spa-background-4.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -12,7 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   overflow-y: hidden;
-}
+} */
 
 /* Semi-transparent overlay for the page */
 .booking-page {

@@ -5,6 +5,8 @@ import BookingPage from "./pages/BookingPage/BookingPage";
 // import AppointmentsPage from "./pages/AppointmentsPage";
 // import ServicesPage from "./pages/ServicesPage";
 import "./App.css";
+import WelcomePage from "./pages/WelcomePage/WelcomePage";
+import LoginPage from "./pages/LoginPage/LoginPage";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<HomePage />} /> */}
           <Route path="/booking" element={<BookingPage />} />
+          <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/login" element={<LoginPage />} />
           {/* <Route path="/check-in" element={<CheckInPage />} />
           <Route path="/appointments" element={<AppointmentsPage />} />
           <Route path="/services" element={<ServicesPage />} /> */}

@@ -1,0 +1,63 @@
+/* Root & background setup */
+/* body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url("/images/spa-background-4.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+  background-color: #f8c1c1;
+  overflow-x: hidden;
+} */
+
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  margin-left: 60vw;
+}
+
+.nail-icon {
+  width: 9%;
+  height: 37px;
+  align-self: center;
+}
+
+/* Nail Spa Name */
+.spa-title {
+  z-index: 2;
+  text-align: end;
+  width: 100%;
+  pointer-events: none;
+  display: flex;
+  margin-left: 15vw;
+  margin-bottom: 80vh;
+  gap: 0.5vw;
+}
+
+.spa-title h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  font-family: "De Bambeet", "Great Vibes", sans-serif, cursive;
+  background: linear-gradient(135deg, #ff69b4, #ff8ac9, #e27cbf);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 3px rgba(255, 105, 180, 0.3),
+    2px 2px 8px rgba(0, 0, 0, 0.15);
+  margin: 0;
+  margin-top: 0.5vh;
+  letter-spacing: 5px;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.spa-title h1:hover {
+  transform: scale(1.1);
+}
