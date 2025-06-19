@@ -1,0 +1,128 @@
+/* Main container */
+.welcome-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 420px;
+  min-height: 60vh;
+  background: rgba(255, 255, 255, 0.38);
+  border-radius: 2.5rem;
+  box-shadow: 0 8px 32px rgba(255, 105, 180, 0.1), 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 3.5rem 4vw 3.5rem 4vw;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  margin: 0 auto;
+}
+
+/* Nail Spa Name */
+.welcome-spa-title {
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5vw;
+}
+
+.welcome-spa-title h1 {
+  font-size: 5.5rem;
+  font-weight: 600;
+  font-family: "De Bambeet", "Great Vibes", cursive, "Netflix Sans", sans-serif;
+  background: linear-gradient(120deg, #f497b0 10%, #e27cbf 60%, #f497b0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 12px rgba(255, 105, 180, 0.18),
+    0 1px 8px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  letter-spacing: 7px;
+  transform: scale(1.04);
+  transition: transform 0.3s cubic-bezier(0.4, 2, 0.6, 1);
+}
+
+.welcome-spa-title h1:hover {
+  transform: scale(1.08);
+}
+
+.welcome-spa-title p {
+  font-size: 2.2rem;
+  font-weight: 500;
+  font-family: "De Bambeet", "Great Vibes", cursive, "Netflix Sans", sans-serif;
+  background: linear-gradient(120deg, #f497b0 10%, #e27cbf 60%, #f497b0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 6px rgba(255, 105, 180, 0.13),
+    0 1px 4px rgba(0, 0, 0, 0.08);
+  letter-spacing: 3px;
+  margin-bottom: -1.5vh;
+  margin-top: 0;
+  transform: scale(1.03);
+  transition: transform 0.3s cubic-bezier(0.4, 2, 0.6, 1);
+}
+
+/* Nail icon (if used) */
+.nail-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 2px 8px rgba(255, 105, 180, 0.18));
+  align-self: center;
+}
+
+/* Get Started Button */
+.get-started-btn {
+  margin-top: 2.5rem;
+  align-self: center;
+  padding: 1.1rem 4rem;
+  font-size: 1.35rem;
+  font-family: "Netflix Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(120deg, #f497b0 10%, #e27cbf 60%, #f497b0 100%);
+  border: none;
+  border-radius: 2.5rem;
+  box-shadow: 0 6px 24px rgba(255, 105, 180, 0.18),
+    0 1.5px 6px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.18s cubic-bezier(0.4, 2, 0.6, 1),
+    box-shadow 0.2s;
+  letter-spacing: 2.5px;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.get-started-btn:hover {
+  background: linear-gradient(120deg, #e27cbf 0%, #f497b0 60%, #f8c1c1 100%);
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 10px 32px rgba(255, 105, 180, 0.22),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.get-started-btn:focus {
+  outline: 2px solid #ff69b4;
+  outline-offset: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .welcome-page-container {
+    min-width: 0;
+    padding: 2rem 2vw;
+  }
+  .welcome-spa-title h1 {
+    font-size: 3.2rem;
+    letter-spacing: 3px;
+  }
+  .welcome-spa-title p {
+    font-size: 1.3rem;
+    letter-spacing: 1.5px;
+  }
+  .get-started-btn {
+    font-size: 1rem;
+    padding: 0.8rem 2.5rem;
+  }
+}

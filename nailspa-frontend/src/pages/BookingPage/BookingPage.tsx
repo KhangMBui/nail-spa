@@ -4,6 +4,7 @@ import "./BookingPage.css";
 import type { Worker, Service } from "../../types";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import "../../App.css";
 
 const BookingPage = () => {
   const [customerName, setCustomerName] = useState("");

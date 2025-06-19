@@ -1,42 +1,44 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("/src/assets//fonts/Netflix-Sans-Light.otf") format("opentype");
+  font-weight: 300; /* Light */
+  font-style: normal;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("/src/assets/fonts/Netflix-Sans-Medium.otf") format("opentype");
+  font-weight: 500; /* Medium */
+  font-style: normal;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("/src/assets/fonts/Netflix-Sans-Bold.otf") format("opentype");
+  font-weight: 700; /* Bold */
+  font-style: normal;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+@font-face {
+  font-family: "De Bambeet";
+  src: url("/src/assets/fonts/De Bambeet.otf");
+  /* font-weight: 300;
+  font-style: normal; */
 }
 
-.card {
-  padding: 2em;
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url("/images/spa-background-4.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+  background-color: #f8c1c1;
+  overflow-x: hidden;
 }
-
-.read-the-docs {
-  color: #888;
-} */

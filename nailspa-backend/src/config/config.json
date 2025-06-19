@@ -1,23 +1,41 @@
 {
   "development": {
-    "username": "postgres",
+    "username": "neondb_owner",
     "password": "Maruko12345!",
-    "database": "nailspadb",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "database": "neondb",
+    "host": "ep-yellow-boat-a6ir9oz9-pooler.us-west-2.aws.neon.tech",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "test": {
-    "username": "postgres",
-    "password": null,
-    "database": "nailspadb_test",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": "neondb_owner",
+    "password": "Maruko12345!",
+    "database": "neondb_test",
+    "host": "ep-yellow-boat-a6ir9oz9-pooler.us-west-2.aws.neon.tech",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "production": {
-    "username": "postgres",
-    "password": null,
-    "database": "nailspadb_production",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": "neondb_owner",
+    "password": "Maruko12345!",
+    "database": "neondb_production",
+    "host": "ep-yellow-boat-a6ir9oz9-pooler.us-west-2.aws.neon.tech",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
