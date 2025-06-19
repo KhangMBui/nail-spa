@@ -8,6 +8,8 @@ const dbUser = process.env.DB_USER ?? "postgres";
 const dbPassword = process.env.DB_PASSWORD ?? "";
 const dbHost = process.env.DB_HOST ?? "localhost";
 
+const endpointId = process.env.DB_ENDPOINT_ID;
+
 // Function to create the database if it doesn't exist
 export async function ensureDatabaseExists() {
   const client = new Client({
@@ -15,6 +17,10 @@ export async function ensureDatabaseExists() {
     password: dbPassword,
     host: dbHost,
     database: "postgres",
+    // For NeonDB
+    // ssl: {
+    //   rejectUnauthorized: false,
+    // },
   });
   await client.connect();
   const res = await client.query(`SELECT 1 FROM pg_database WHERE datname=$1`, [
@@ -28,6 +34,13 @@ export async function ensureDatabaseExists() {
 }
 
 export const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
-  host: process.env.DB_HOST,
+  host: dbHost,
   dialect: "postgres",
+  // For NeonDB
+  // dialectOptions: {
+  //   ssl: {
+  //     require: true,
+  //     rejectUnauthorized: false,
+  //   },
+  // },
 });
